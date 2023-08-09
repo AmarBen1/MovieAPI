@@ -1,6 +1,9 @@
-﻿namespace MovieAPI.Interfaces
+﻿using MovieAPI.Domain;
+
+namespace MovieAPI.Interfaces
 {
-    public class IMovieRepository
+    public interface IMovieRepository
     {
+        Task<IEnumerable<Movie>> GetAllMovies();
     }
 }

@@ -22,7 +22,6 @@ namespace MovieAPI.Extensions
                 Budget = movie.Budget.ToString("C0", new CultureInfo("en-US")),
                 //Budget = $"{movie.Budget} $",
                 Actors = movie.Actors.Select(x => $"{x.FirstName} {x.LastName}")
-
             };
             return dto;
         }

@@ -21,7 +21,7 @@ namespace MovieAPI.Domain
                 .Include(x => x.Actors)
                 .Include(x => x.Director)
                 .ToListAsync();
-            var movies = DtoExtension.MapToDto(result);
+            var movies = result.MapToDto();//DtoExtension.MapToDto(result);
             //var movies = from movie in result
             //             select new MovieDTO
             //             {

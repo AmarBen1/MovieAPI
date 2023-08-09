@@ -18,17 +18,17 @@ namespace MovieAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMovies()
         {
-            var result = await _movieRepository.GetAllMovies();
+            var movies = await _movieRepository.GetAllMovies();
 
-            var movies = from movie in result
-                         select new MovieDTO
-                         {
-                             Title = movie.Title,
-                             Director = $"{movie.Director.FirstName} {movie.Director.LastName}",
-                             ReleaseYear = movie.ReleaseYear,
-                             Budget = $"{movie.Budget} $",
-                             Actors = movie.Actors.Select(x => $"{x.FirstName} {x.LastName}")
-                         };
+            //var movies = from movie in result
+            //             select new MovieDTO
+            //             {
+            //                 Title = movie.Title,
+            //                 Director = $"{movie.Director.FirstName} {movie.Director.LastName}",
+            //                 ReleaseYear = movie.ReleaseYear,
+            //                 Budget = $"{movie.Budget} $",
+            //                 Actors = movie.Actors.Select(x => $"{x.FirstName} {x.LastName}")
+            //             };
 
             return Ok(movies);
         }

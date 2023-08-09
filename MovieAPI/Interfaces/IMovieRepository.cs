@@ -1,9 +1,10 @@
 ﻿using MovieAPI.Domain;
+using MovieAPI.DTOs;
 
 namespace MovieAPI.Interfaces
 {
     public interface IMovieRepository
     {
-        Task<IEnumerable<Movie>> GetAllMovies();
+        Task<IEnumerable<MovieDTO>> GetAllMovies();
     }
 }

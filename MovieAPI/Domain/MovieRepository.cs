@@ -8,16 +8,16 @@ namespace MovieAPI.Domain
     {
         private readonly MovieDbContext _context;
 
-        public MovieRepository(MovieDbContext context) 
+        public MovieRepository(MovieDbContext context)
         {
             _context = context;
         }
         public async Task<IEnumerable<Movie>> GetAllMovies()
         {
             return await _context.Movies
-                .Include(x=>x.Actors)
-                .Include(x=>x.Director)
-                .ToListAsync();            
+                .Include(x => x.Actors)
+                .Include(x => x.Director)
+                .ToListAsync();
         }
     }
 }

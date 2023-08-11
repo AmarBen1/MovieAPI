@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieAPI.Domain;
 using MovieAPI.DTOs;
 using MovieAPI.Interfaces;
 
@@ -15,20 +16,17 @@ namespace MovieAPI.Controllers
             _movieRepository = movieRepository;
         }
 
+        [HttpPost]
+        public Movie AddNewMovie(Movie movie)
+        {
+            var result = _movieRepository.AddMovie(movie);
+            return movie;
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetMovies()
         {
-            var movies = await _movieRepository.GetAllMovies();
-
-            //var movies = from movie in result
-            //             select new MovieDTO
-            //             {
-            //                 Title = movie.Title,
-            //                 Director = $"{movie.Director.FirstName} {movie.Director.LastName}",
-            //                 ReleaseYear = movie.ReleaseYear,
-            //                 Budget = $"{movie.Budget} $",
-            //                 Actors = movie.Actors.Select(x => $"{x.FirstName} {x.LastName}")
-            //             };
+            var movies = await _movieRepository.GetAllMovies(); 
 
             return Ok(movies);
         }

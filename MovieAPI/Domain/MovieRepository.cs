@@ -18,17 +18,8 @@ namespace MovieAPI.Domain
 
         public Movie AddMovie(Movie movie)
         {
-            foreach (Actor actor in movie.Actors)
-            {
-                var existingActorId = GetExistingActor(actor);
-                if (existingActorId != 0)
-                {
-                    actor.Id = existingActorId;
-                }
-            }
-
-            //_context.Update(movie);
-            //_context.SaveChanges();
+            _context.Update(movie);
+            _context.SaveChanges();
             return movie;
         }
 

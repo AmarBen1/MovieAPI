@@ -8,6 +8,8 @@ namespace MovieAPI.Interfaces
         Task<IEnumerable<MovieDTO>> GetAllMovies();
         Movie AddMovie(Movie movie);
         Task<MovieDTO> GetMovieById(int id);
-        Actor CheckForExistingActor(Movie movie);
+        int GetExistingActor(Actor actor);
+
+        
     }
 }

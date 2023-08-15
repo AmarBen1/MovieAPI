@@ -19,14 +19,14 @@ namespace MovieAPI.Controllers
         [HttpPost]
         public Movie AddNewMovie(Movie movie)
         {
-            foreach (Actor actor in movie.Actors)
-            {
-                var existingActorId = _movieRepository.GetExistingActor(actor);
-                if (existingActorId != null)
-                {
-                    actor.Id = existingActorId;
-                }
-            }
+            //foreach (Actor actor in movie.Actors)
+            //{
+            //    var existingActorId = _movieRepository.GetExistingActor(actor);
+            //    if (existingActorId != 0)
+            //    {
+            //        actor.Id = existingActorId;
+            //    }
+            //}
             
             var result = _movieRepository.AddMovie(movie);
             return result;

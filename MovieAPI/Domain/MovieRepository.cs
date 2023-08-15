@@ -13,48 +13,36 @@ namespace MovieAPI.Domain
         public MovieRepository(MovieDbContext context)
         {
             _context = context;
-        }   
+        }
 
-    
+
         public Movie AddMovie(Movie movie)
         {
-            //foreach (Actor actor in movie.Actors)
-            //{
-            //    //var existingActor = GetExistingActors(actor.FirstName, actor.LastName);
-            //    var existingActor = _context.Actors
-            //        .Where(x => x.FirstName == actor.FirstName && x.LastName == actor.LastName)
-            //        .AsNoTracking() // No tracking of the entity
-            //        .FirstOrDefault();
-            //    if (existingActor != null)
-            //    {
-            //        actor.Id = existingActor.Id;
-            //    }
-            //}
+            foreach (Actor actor in movie.Actors)
+            {
+                var existingActorId = GetExistingActor(actor);
+                if (existingActorId != 0)
+                {
+                    actor.Id = existingActorId;
+                }
+            }
 
+            //_context.Update(movie);
+            //_context.SaveChanges();
             return movie;
         }
 
         public int GetExistingActor(Actor actor)
         {
-            //foreach (Actor actor in movie.Actors)
-            //{
-            //var existingActor = GetExistingActors(actor.FirstName, actor.LastName);
             var existingActor = _context.Actors
                 .Where(x => x.FirstName == actor.FirstName && x.LastName == actor.LastName)
                 .AsNoTracking() // No tracking of the entity
                 .FirstOrDefault();
-            //if (existingActor != null)
-            //{
-            //    actor.Id = existingActor.Id;
-            //}
-            // }
-
-            return existingActor.Id;
-        }
-
-        public IEnumerable<Actor> GetActor(string firstName, string lastName)
-        {
-            throw new NotImplementedException();
+            if (existingActor != null)
+            {
+                return existingActor.Id;
+            }
+            return 0;
         }
 
         public async Task<IEnumerable<MovieDTO>> GetAllMovies()
@@ -76,7 +64,7 @@ namespace MovieAPI.Domain
             return movie;
         }
 
- 
+
 
 
     }

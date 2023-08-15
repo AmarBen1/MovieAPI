@@ -60,10 +60,11 @@ namespace MovieApi.Tests
         [Fact]
         public void AddMovie()
         {
-            var existingActor = new Actor { Id = 1, FirstName = "Tom", LastName = "Cruise" };
+            var existingDirector = new Director { Id = 2, FirstName = "Tony", LastName = "Scott" };
             var movie = new Movie
             {
                 Title = "Top Gun",
+                Director = new Director { Id = 0, FirstName = "Tony", LastName = "Scott" },
                 Actors = new List<Actor>
                 {
                     new Actor { Id = 0, FirstName = "Tom", LastName = "Cruise" }
@@ -71,15 +72,15 @@ namespace MovieApi.Tests
             };
 
             var mock = new Mock<IMovieRepository>();
-            mock.Setup(x => x.GetExistingActor(It.IsAny<Actor>())).Returns(existingActor.Id);
+            mock.Setup(x => x.GetExistingActor(It.IsAny<Actor>())).Returns(null);
+            mock.Setup(x => x.GetExistingDirector(It.IsAny<Director>())).Returns(existingDirector.Id);
             mock.Setup(x => x.AddMovie(It.IsAny<Movie>())).Returns(movie);
 
             var sut = new MovieController(mock.Object);
 
-            var result = sut.AddNewMovie(movie);
-            var actors = result.Actors.ToList();
+            var result = sut.AddNewMovie(movie);            
 
-            Assert.Equal(1, actors[0].Id);
+            Assert.Equal(2, result.Director.Id);
         }
     }
 }

@@ -28,6 +28,12 @@ namespace MovieAPI.Controllers
                 }
             }
 
+            var existingDirectorId = _movieRepository.GetExistingDirector(movie.Director);
+            if (existingDirectorId != 0)
+            {
+                movie.Director.Id = existingDirectorId;
+            }
+
             var result = _movieRepository.AddMovie(movie);
             return result;
         }

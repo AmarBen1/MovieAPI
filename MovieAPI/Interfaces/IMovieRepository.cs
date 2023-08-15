@@ -9,7 +9,8 @@ namespace MovieAPI.Interfaces
         Movie AddMovie(Movie movie);
         Task<MovieDTO> GetMovieById(int id);
         int GetExistingActor(Actor actor);
+        int GetExistingDirector(Director director);
 
-        
+
     }
 }

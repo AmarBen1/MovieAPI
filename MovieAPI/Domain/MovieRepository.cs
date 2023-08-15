@@ -35,7 +35,18 @@ namespace MovieAPI.Domain
             }
             return 0;
         }
-
+        public int GetExistingDirector(Director director)
+        {
+            var existingDirector = _context.Directors
+                 .Where(x => x.FirstName == director.FirstName && x.LastName == director.LastName)
+                 .AsNoTracking() // No tracking of the entity
+                 .FirstOrDefault();
+            if (existingDirector != null)
+            {
+                return existingDirector.Id;
+            }
+            return 0;
+        }
         public async Task<IEnumerable<MovieDTO>> GetAllMovies()
         {
             var result = await _context.Movies
@@ -55,8 +66,6 @@ namespace MovieAPI.Domain
             return movie;
         }
 
-
-
-
+   
     }
 }

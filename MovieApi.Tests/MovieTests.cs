@@ -58,7 +58,7 @@ namespace MovieApi.Tests
         }
 
         [Fact]
-        public void AddMovie()
+        public void AddMovieShouldNotCreateNewDirectorIfItExists()
         {
             var existingDirector = new Director { Id = 2, FirstName = "Tony", LastName = "Scott" };
             var movie = new Movie

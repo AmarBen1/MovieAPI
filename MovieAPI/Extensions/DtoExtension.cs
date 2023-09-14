@@ -20,9 +20,7 @@ namespace MovieAPI.Extensions
                 Title = movie.Title,
                 DirectorId=movie.DirectorId,
                 Director = $"{movie.Director.FirstName} {movie.Director.LastName}",
-                ReleaseYear = movie.ReleaseYear,               
-                Budget = movie.Budget.ToString("C0", new CultureInfo("en-US")),
-                //Budget = $"{movie.Budget} $",
+                ReleaseYear = movie.ReleaseYear,                              
                 Actors = movie.Actors.Select(x => $"{x.FirstName} {x.LastName}")
             };
             return dto;

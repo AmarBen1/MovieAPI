@@ -1,14 +1,8 @@
 ﻿namespace MovieAPI.Domain
 {
-    public class Genre
+    public class Genres
     {
-        public enum Genres
-        {
-            Action,
-            Drama,
-            Comedy,
-            Thriller,
-            Western           
-        }
+        public int Id { get; set; }
+        public string Genre { get; set; }
     }
 }

@@ -16,9 +16,11 @@ namespace MovieAPI.Extensions
         {
             var dto = new MovieDTO
             {
+                Id = movie.Id,
                 Title = movie.Title,
+                DirectorId=movie.DirectorId,
                 Director = $"{movie.Director.FirstName} {movie.Director.LastName}",
-                ReleaseYear = movie.ReleaseYear,
+                ReleaseYear = movie.ReleaseYear,               
                 Budget = movie.Budget.ToString("C0", new CultureInfo("en-US")),
                 //Budget = $"{movie.Budget} $",
                 Actors = movie.Actors.Select(x => $"{x.FirstName} {x.LastName}")

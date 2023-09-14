@@ -28,11 +28,11 @@ namespace MovieAPI.Controllers
                 }
             }
 
-            var existingDirectorId = _movieRepository.GetExistingDirector(movie.Director);
-            if (existingDirectorId != 0)
-            {
-                movie.Director.Id = existingDirectorId;
-            }
+            //var existingDirectorId = _movieRepository.GetExistingDirector(movie.Director);
+            //if (existingDirectorId != 0)
+            //{
+            //    movie.Director.Id = existingDirectorId;
+            //}
 
             var result = _movieRepository.AddMovie(movie);
             return result;
@@ -41,9 +41,49 @@ namespace MovieAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMovies()
         {
-            var movies = await _movieRepository.GetAllMovies(); 
-
+           // var movies = await _movieRepository.GetAllMovies();
+           var movies = await _movieRepository.GetMovies();
             return Ok(movies);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMovie(int id)
+        {
+            var res = await _movieRepository.GetMovieById(id);
+            //foreach (Actor actor in movie.Actors)
+            //{
+            //    var existingActorId = _movieRepository.GetExistingActor(actor);
+            //    if (existingActorId != 0)
+            //    {
+            //        actor.Id = existingActorId;
+            //    }
+            //}
+
+            //var existingDirectorId = _movieRepository.GetExistingDirector(movie.Director);
+            //if (existingDirectorId != 0)
+            //{
+            //    movie.Director.Id = existingDirectorId;
+            //}
+            var result = await _movieRepository.UpdateMovie(res);
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMovie(int id)
+        {
+            var movie = await _movieRepository.GetMovieById(id);
+
+            return Ok(movie);
         }
     }
 }
+
+
+
+
+
+
+
+
+

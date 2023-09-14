@@ -8,8 +8,7 @@
             Drama,
             Comedy,
             Thriller,
-            Science_Fiction
-
+            Western           
         }
     }
 }

@@ -40,7 +40,7 @@ namespace MovieAPI.Data
                 {
                     Id = 1,
                     Title = "Top Gun : Maverick",
-                    DirectorId = 1,
+                   // DirectorId = 1,
                     Budget = 150000000,
                     ReleaseYear = 2022    
                 },
@@ -48,7 +48,7 @@ namespace MovieAPI.Data
                 {
                     Id = 2,
                     Title = "The Last Boy Scout",
-                    DirectorId = 2,
+                   // DirectorId = 2,
                     Budget = 30000000,
                     ReleaseYear = 1991
                 });

@@ -46,7 +46,7 @@ namespace MovieApi.Tests
             };
 
             var mock = new Mock<IMovieRepository>();
-            mock.Setup(x => x.GetExistingActor(It.IsAny<Actor>())).Returns(null);
+            mock.Setup(x => x.GetExistingActor(It.IsAny<Actor>())).Returns(0);
             mock.Setup(x => x.AddMovie(It.IsAny<Movie>())).Returns(movie);
 
             var sut = new MovieController(mock.Object);
@@ -72,9 +72,9 @@ namespace MovieApi.Tests
             };
 
             var mock = new Mock<IMovieRepository>();
-            mock.Setup(x => x.GetExistingActor(It.IsAny<Actor>())).Returns(null);
+            mock.Setup(x => x.GetExistingActor(It.IsAny<Actor>())).Returns(0);
             mock.Setup(x => x.GetExistingDirector(It.IsAny<Director>())).Returns(existingDirector.Id);
-            mock.Setup(x => x.AddMovie(It.IsAny<Movie>())).Returns(movie);
+            mock.Setup(x => x.AddMovie(It.IsAny<Movie>())).Returns(movie);            
 
             var sut = new MovieController(mock.Object);
 
@@ -82,5 +82,8 @@ namespace MovieApi.Tests
 
             Assert.Equal(2, result.Director.Id);
         }
+
+
+       
     }
 }

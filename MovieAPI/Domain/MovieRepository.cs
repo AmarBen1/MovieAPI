@@ -14,8 +14,6 @@ namespace MovieAPI.Domain
         {
             _context = context;
         }
-
-
         public Movie AddMovie(Movie movie)
         {
             _context.Update(movie);
@@ -59,13 +57,50 @@ namespace MovieAPI.Domain
             return movies;
         }
 
-        public async Task<MovieDTO> GetMovieById(int id)
+        //public async Task<MovieDTO> GetMovieById(int id)
+        //{
+        //    var result = await _context.Movies.FirstOrDefaultAsync(x => x.Id == id);
+        //   var movie = result.MapToDto();
+        //    return movie;
+        //}
+
+  
+        public async Task<Movie> GetMovieById(int id)
         {
-            var result = await _context.Movies.FirstOrDefaultAsync(x => x.Id == id);
-            var movie = result.MapToDto();
+            var result = await _context.Movies.Include(x=>x.Actors)
+                                              .Include(x=>x.Director)
+                                              .FirstOrDefaultAsync(x => x.Id == id);
+          //  var movie = result.MapToDto();
+            return result;
+        }
+
+        public async Task<Movie> UpdateMovie(Movie movie)
+        {
+           // var result = await _context.Movies.FirstOrDefaultAsync(e=>e.Id == id);
+
+           // result = movie;
+                                               
+            //result.Director = movie.Director;
+            //result.Budget = movie.Budget;
+            //result.Title = movie.Title;
+            //result.Actors = movie.Actors;
+            //result.ReleaseYear = movie.ReleaseYear;
+
+            //_context.Update(result);
+            //_context.SaveChanges();
             return movie;
         }
 
-   
+        public async Task<IEnumerable<Movie>> GetMovies()
+        {
+            var result = await _context.Movies
+                .Include(x => x.Actors)
+                .Include(x => x.Director)
+                .ToListAsync();
+
+           // var movies = result.MapToDto();
+
+            return result;
+        }
     }
 }

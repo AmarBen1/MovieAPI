@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieAPI.Data;
 using MovieAPI.Domain;
 using MovieAPI.Interfaces;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 builder.Services.AddScoped<IMovieRepository, MovieRepository>(); //Depedency injection
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("NewPolicy", builder =>
+    builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
+
+builder.Services.AddHealthChecks(); // health check of the app
 
 var app = builder.Build();
 
@@ -27,6 +39,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("NewPolicy");
 
 app.UseAuthorization();
 

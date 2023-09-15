@@ -65,13 +65,13 @@ namespace MovieAPI.Domain
         //}
 
   
-        public async Task<Movie> GetMovieById(int id)
+        public async Task<MovieDTO> GetMovieById(int id)
         {
             var result = await _context.Movies.Include(x=>x.Actors)
                                               .Include(x=>x.Director)
                                               .FirstOrDefaultAsync(x => x.Id == id);
-          //  var movie = result.MapToDto();
-            return result;
+            var movie = result.MapToDto();
+            return movie;
         }
 
         public async Task<Movie> UpdateMovie(Movie movie)

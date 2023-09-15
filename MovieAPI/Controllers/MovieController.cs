@@ -64,9 +64,9 @@ namespace MovieAPI.Controllers
             //{
             //    movie.Director.Id = existingDirectorId;
             //}
-            var result = await _movieRepository.UpdateMovie(res);
+          //  var result = await _movieRepository.UpdateMovie(res);
 
-            return Ok(result);
+            return Ok();
         }
 
         [HttpGet("{id}")]

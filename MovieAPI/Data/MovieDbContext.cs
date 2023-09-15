@@ -13,8 +13,7 @@ namespace MovieAPI.Data
 
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<Director> Directors { get; set; }
-        public DbSet<Genres> Genre { get; set; }
+        public DbSet<Director> Directors { get; set; }       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,19 +55,19 @@ namespace MovieAPI.Data
                 new Director
                 { Id = 5, FirstName = "Ridley", LastName = "Scott" });
 
-            modelBuilder.Entity<Genres>().HasData(
-                new Genres
-                { Id = 1, Genre = "Action" },
-                new Genres
-                { Id = 2, Genre = "Comedy" },
-                new Genres
-                { Id = 3, Genre = "Science-Fiction" },
-                 new Genres
-                { Id = 4, Genre = "Drama" },
-                 new Genres
-                { Id = 5, Genre = "Western" },
-                 new Genres
-                { Id = 6, Genre = "Thriller" });
+            //modelBuilder.Entity<Genres>().HasData(
+            //    new Genres
+            //    { Id = 1, Genre = "Action" },
+            //    new Genres
+            //    { Id = 2, Genre = "Comedy" },
+            //    new Genres
+            //    { Id = 3, Genre = "Science-Fiction" },
+            //     new Genres
+            //    { Id = 4, Genre = "Drama" },
+            //     new Genres
+            //    { Id = 5, Genre = "Western" },
+            //     new Genres
+            //    { Id = 6, Genre = "Thriller" });
 
             modelBuilder.Entity<Movie>().HasData(
                  new Movie
@@ -78,7 +77,7 @@ namespace MovieAPI.Data
                      DirectorId = 1,
                      Duration = "2h 10m",
                      TrailerPath = "https://www.youtube.com/embed/giXco2jaZ_4?si=bhuGz4-cg-ka5dqa",
-                     GenreId = 1,
+                     Genre = Genre.Action,
                      ReleaseYear = 2022
                  },
                  new Movie
@@ -88,7 +87,7 @@ namespace MovieAPI.Data
                      DirectorId = 2,
                      Duration = "1h 45m",
                      TrailerPath = "https://www.youtube.com/embed/NPO-Z6mEYW4?si=LAxOH9CVyWYpFjMX",
-                     GenreId = 1,
+                     Genre = Genre.Action,
                      ReleaseYear = 1991
                  },
                  new Movie
@@ -98,7 +97,7 @@ namespace MovieAPI.Data
                      DirectorId = 3,
                      Duration = "2h 13m",
                      TrailerPath = "https://www.youtube.com/embed/mlNwXuHUA8I?si=Ho7AiWBMwWx2HpO6",
-                     GenreId = 4,
+                     Genre = Genre.Drama,
                      ReleaseYear = 1988
                  },
                  new Movie
@@ -108,7 +107,7 @@ namespace MovieAPI.Data
                      DirectorId = 4,
                      Duration = "2h 58m",
                      TrailerPath = "https://www.youtube.com/embed/IFNUGzCOQoI?si=a96JJzg1QCRcJrK5",
-                     GenreId = 5,
+                     Genre = Genre.Western,
                      ReleaseYear = 1966
                  },
                  new Movie
@@ -118,7 +117,7 @@ namespace MovieAPI.Data
                      DirectorId = 5,
                      Duration = "1h 57m",
                      TrailerPath = "https://www.youtube.com/embed/jQ5lPt9edzQ?si=caTNcXcqcHE2p1d-",
-                     GenreId = 3,
+                     Genre = Genre.SF,
                      ReleaseYear = 1979
                  },
                  new Movie
@@ -128,9 +127,19 @@ namespace MovieAPI.Data
                      DirectorId = 4,
                      Duration = "2h 12m",
                      TrailerPath = "https://www.youtube.com/embed/bNt9NcLteoU?si=U6ZFghGM58QWbfD9",
-                     GenreId = 5,
+                     Genre=Genre.Western,
                      ReleaseYear = 1965
-                 });
+                 },
+                new Movie
+                {
+                    Id = 7,
+                    Title = "Top Gun",
+                    DirectorId = 2,
+                    Duration = "2h 04m",
+                   TrailerPath = "https://www.youtube.com/embed/bNt9NcLteoU?si=U6ZFghGM58QWbfD9",
+                    Genre = Genre.Action,
+                    ReleaseYear = 1986
+                });
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieAPI.Data;
 
@@ -10,9 +11,11 @@ using MovieAPI.Data;
 namespace MovieAPI.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    partial class MovieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230915110912_blazor2")]
+    partial class blazor2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,6 +175,55 @@ namespace MovieAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MovieAPI.Domain.Genres", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genre");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Genre = "Action"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Genre = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Genre = "Science-Fiction"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Genre = "Drama"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Genre = "Western"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Genre = "Thriller"
+                        });
+                });
+
             modelBuilder.Entity("MovieAPI.Domain.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -187,7 +239,7 @@ namespace MovieAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Genre")
+                    b.Property<int>("GenreId")
                         .HasColumnType("int");
 
                     b.Property<int>("ReleaseYear")
@@ -205,6 +257,8 @@ namespace MovieAPI.Migrations
 
                     b.HasIndex("DirectorId");
 
+                    b.HasIndex("GenreId");
+
                     b.ToTable("Movies");
 
                     b.HasData(
@@ -213,7 +267,7 @@ namespace MovieAPI.Migrations
                             Id = 1,
                             DirectorId = 1,
                             Duration = "2h 10m",
-                            Genre = 0,
+                            GenreId = 1,
                             ReleaseYear = 2022,
                             Title = "Top Gun : Maverick",
                             TrailerPath = "https://www.youtube.com/embed/giXco2jaZ_4?si=bhuGz4-cg-ka5dqa"
@@ -223,7 +277,7 @@ namespace MovieAPI.Migrations
                             Id = 2,
                             DirectorId = 2,
                             Duration = "1h 45m",
-                            Genre = 0,
+                            GenreId = 1,
                             ReleaseYear = 1991,
                             Title = "The Last Boy Scout",
                             TrailerPath = "https://www.youtube.com/embed/NPO-Z6mEYW4?si=LAxOH9CVyWYpFjMX"
@@ -233,7 +287,7 @@ namespace MovieAPI.Migrations
                             Id = 3,
                             DirectorId = 3,
                             Duration = "2h 13m",
-                            Genre = 1,
+                            GenreId = 4,
                             ReleaseYear = 1988,
                             Title = "Rain Man",
                             TrailerPath = "https://www.youtube.com/embed/mlNwXuHUA8I?si=Ho7AiWBMwWx2HpO6"
@@ -243,7 +297,7 @@ namespace MovieAPI.Migrations
                             Id = 4,
                             DirectorId = 4,
                             Duration = "2h 58m",
-                            Genre = 2,
+                            GenreId = 5,
                             ReleaseYear = 1966,
                             Title = "The Good, the Bad and the Ugly",
                             TrailerPath = "https://www.youtube.com/embed/IFNUGzCOQoI?si=a96JJzg1QCRcJrK5"
@@ -253,7 +307,7 @@ namespace MovieAPI.Migrations
                             Id = 5,
                             DirectorId = 5,
                             Duration = "1h 57m",
-                            Genre = 3,
+                            GenreId = 3,
                             ReleaseYear = 1979,
                             Title = "Alien",
                             TrailerPath = "https://www.youtube.com/embed/jQ5lPt9edzQ?si=caTNcXcqcHE2p1d-"
@@ -263,7 +317,7 @@ namespace MovieAPI.Migrations
                             Id = 6,
                             DirectorId = 4,
                             Duration = "2h 12m",
-                            Genre = 2,
+                            GenreId = 5,
                             ReleaseYear = 1965,
                             Title = "For a Few Dollar More",
                             TrailerPath = "https://www.youtube.com/embed/bNt9NcLteoU?si=U6ZFghGM58QWbfD9"
@@ -273,7 +327,7 @@ namespace MovieAPI.Migrations
                             Id = 7,
                             DirectorId = 2,
                             Duration = "2h 04m",
-                            Genre = 0,
+                            GenreId = 1,
                             ReleaseYear = 1986,
                             Title = "Top Gun",
                             TrailerPath = "https://www.youtube.com/embed/bNt9NcLteoU?si=U6ZFghGM58QWbfD9"
@@ -303,10 +357,23 @@ namespace MovieAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MovieAPI.Domain.Genres", "Genre")
+                        .WithMany("Movies")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Director");
+
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("MovieAPI.Domain.Director", b =>
+                {
+                    b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieAPI.Domain.Genres", b =>
                 {
                     b.Navigation("Movies");
                 });

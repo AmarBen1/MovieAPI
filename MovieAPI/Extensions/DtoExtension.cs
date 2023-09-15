@@ -19,9 +19,13 @@ namespace MovieAPI.Extensions
                 Id = movie.Id,
                 Title = movie.Title,
                 DirectorId=movie.DirectorId,
-                Director = $"{movie.Director.FirstName} {movie.Director.LastName}",
-                ReleaseYear = movie.ReleaseYear,                              
-                Actors = movie.Actors.Select(x => $"{x.FirstName} {x.LastName}")
+               // Director = $"{movie.Director.FirstName} {movie.Director.LastName}",
+                Director = movie.Director,               
+                Genre = movie.Genre,
+                ReleaseYear = movie.ReleaseYear,
+                Duration = movie.Duration,
+                // Actors = movie.Actors.Select(x => $"{x.FirstName} {x.LastName}")
+                Actors = movie.Actors
             };
             return dto;
         }

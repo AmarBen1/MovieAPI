@@ -7,25 +7,24 @@ namespace MovieAPI.Extensions
 {
     public static class DtoExtension
     {
-        public static IEnumerable<MovieDTO> MapToDto(this IEnumerable<Movie> movies)
+        public static IEnumerable<MovieDTO> ToDto(this IEnumerable<Movie> movies)
         {
-            return movies.Select(x => x.MapToDto());
+            return movies.Select(x => x.ToDto());
         }
 
-        public static MovieDTO MapToDto(this Movie movie)
+        public static MovieDTO ToDto(this Movie movie)
         {
             var dto = new MovieDTO
             {
                 Id = movie.Id,
                 Title = movie.Title,
-                DirectorId=movie.DirectorId,
-               // Director = $"{movie.Director.FirstName} {movie.Director.LastName}",
-                Director = movie.Director,               
+               // DirectorId=movie.DirectorId,           
+                Director = new Director { Id = movie.Director.Id, FirstName = movie.Director.FirstName, LastName=movie.Director.LastName },
                 Genre = movie.Genre,
+                TrailerPath = movie.TrailerPath,
                 ReleaseYear = movie.ReleaseYear,
                 Duration = movie.Duration,
-                // Actors = movie.Actors.Select(x => $"{x.FirstName} {x.LastName}")
-                Actors = movie.Actors
+                Actors = movie.Actors.Select(x=>new Actor { Id=x.Id, FirstName=x.FirstName, LastName=x.LastName })               
             };
             return dto;
         }

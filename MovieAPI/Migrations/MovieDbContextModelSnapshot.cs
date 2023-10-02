@@ -45,11 +45,11 @@ namespace MovieAPI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
+                       // .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
+                       // .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -128,11 +128,11 @@ namespace MovieAPI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
+                       // .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
+                       // .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -184,7 +184,7 @@ namespace MovieAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Duration")
-                        .IsRequired()
+                       // .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Genre")
@@ -194,11 +194,11 @@ namespace MovieAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
+                      //  .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TrailerPath")
-                        .IsRequired()
+                       // .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

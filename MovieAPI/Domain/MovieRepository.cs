@@ -14,13 +14,20 @@ namespace MovieAPI.Domain
         {
             _context = context;
         }
-        public Movie AddMovie(Movie movie)
+
+        public async Task<Movie> AddMovie(Movie movie)
         {
             _context.Update(movie);
             _context.SaveChanges();
             return movie;
         }
 
+        //public  Movie AddMovie(Movie movie)
+        //{
+        //    _context.Update(movie);
+        //    _context.SaveChanges();
+        //    return movie;
+        //}
         public int GetExistingActor(Actor actor)
         {
             var existingActor = _context.Actors
@@ -52,55 +59,42 @@ namespace MovieAPI.Domain
                 .Include(x => x.Director)
                 .ToListAsync();
 
-            var movies = result.MapToDto();
+            var movies = result.ToDto();
 
             return movies;
         }
-
-        //public async Task<MovieDTO> GetMovieById(int id)
-        //{
-        //    var result = await _context.Movies.FirstOrDefaultAsync(x => x.Id == id);
-        //   var movie = result.MapToDto();
-        //    return movie;
-        //}
-
-  
         public async Task<MovieDTO> GetMovieById(int id)
         {
             var result = await _context.Movies.Include(x=>x.Actors)
                                               .Include(x=>x.Director)
                                               .FirstOrDefaultAsync(x => x.Id == id);
-            var movie = result.MapToDto();
+            var movie = result.ToDto();
             return movie;
         }
-
-        public async Task<Movie> UpdateMovie(Movie movie)
+        public async Task<Movie> UpdateMovie(Movie movie) //to do
         {
-           // var result = await _context.Movies.FirstOrDefaultAsync(e=>e.Id == id);
-
-           // result = movie;
-                                               
-            //result.Director = movie.Director;
-            //result.Budget = movie.Budget;
-            //result.Title = movie.Title;
-            //result.Actors = movie.Actors;
-            //result.ReleaseYear = movie.ReleaseYear;
-
-            //_context.Update(result);
-            //_context.SaveChanges();
             return movie;
         }
-
-        public async Task<IEnumerable<Movie>> GetMovies()
+        public void DeleteMovie(int movieId)
         {
-            var result = await _context.Movies
-                .Include(x => x.Actors)
-                .Include(x => x.Director)
-                .ToListAsync();
+            var movie = _context.Movies.FirstOrDefault(e=>e.Id == movieId);
+            _context.Movies.Remove(movie);
+            _context.SaveChanges();
+           
+        }
+        public async Task<IEnumerable<MovieDTO>> GetMoviesByTitle(string movieTitle)
+        {
+            var result = await _context.Movies.Include(x => x.Actors)
+                                         .Include(x => x.Director)
+                                         .Where(x => x.Title == movieTitle)
+                                         .ToListAsync();
 
-           // var movies = result.MapToDto();
-
-            return result;
+            var movies = result.ToDto();
+            return movies;
+        }
+        public Task<MovieDTO> GetMoviesByYear(int ReleaseYear)
+        {
+            throw new NotImplementedException();
         }
     }
 }

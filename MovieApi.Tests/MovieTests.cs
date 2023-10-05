@@ -38,17 +38,7 @@ namespace MovieApi.Tests
             var returnedMovie = Assert.IsType<Movie>(okResult.Value);
             var actors = returnedMovie.Actors.ToList();
 
-            // Assert that the Id of the actor in the returned movie is the same as the existing actor
             Assert.Equal(existingActor.Id, actors[0].Id);
-
-
-            // var data = result.Value as Movie;
-
-            // var actors = data.Actors.ToList();
-
-            //var actors = result.Actors.ToList();
-
-            Assert.Equal(2, actors[0].Id);
         }
 
         //[Fact]

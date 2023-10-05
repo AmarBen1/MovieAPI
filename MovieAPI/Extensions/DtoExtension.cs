@@ -18,7 +18,6 @@ namespace MovieAPI.Extensions
             {
                 Id = movie.Id,
                 Title = movie.Title,
-               // DirectorId=movie.DirectorId,           
                 Director = new Director { Id = movie.Director.Id, FirstName = movie.Director.FirstName, LastName=movie.Director.LastName },
                 Genre = movie.Genre,
                 TrailerPath = movie.TrailerPath,

@@ -55,20 +55,6 @@ namespace MovieAPI.Data
                 new Director
                 { Id = 5, FirstName = "Ridley", LastName = "Scott" });
 
-            //modelBuilder.Entity<Genres>().HasData(
-            //    new Genres
-            //    { Id = 1, Genre = "Action" },
-            //    new Genres
-            //    { Id = 2, Genre = "Comedy" },
-            //    new Genres
-            //    { Id = 3, Genre = "Science-Fiction" },
-            //     new Genres
-            //    { Id = 4, Genre = "Drama" },
-            //     new Genres
-            //    { Id = 5, Genre = "Western" },
-            //     new Genres
-            //    { Id = 6, Genre = "Thriller" });
-
             modelBuilder.Entity<Movie>().HasData(
                  new Movie
                  {

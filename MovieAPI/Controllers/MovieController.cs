@@ -1,10 +1,7 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieAPI.Domain;
 using MovieAPI.Interfaces;
-using MovieAPI.Validation;
 
 namespace MovieAPI.Controllers
 {
@@ -25,12 +22,12 @@ namespace MovieAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewMovie(Movie movie)
         {
-            //var validationResult = _movieValidator.Validate(movie);
+            var validationResult = _movieValidator.Validate(movie);
 
-            //if (!validationResult.IsValid)
-            //{
-            //    return BadRequest(validationResult.Errors.Select(x=>x.ErrorMessage));
-            //}
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(x => x.ErrorMessage));
+            }
 
             var existingDirectorId = _movieRepository.GetExistingDirector(movie.Director);
             if (existingDirectorId != 0)
@@ -85,13 +82,13 @@ namespace MovieAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMovies()
         {
-             var movies = await _movieRepository.GetAllMovies();
-            //var movies = await _movieRepository.GetMovies();
+            var movies = await _movieRepository.GetAllMovies();
+
             return Ok(movies);
         }
 
         [HttpPut("{id}")] //to do
-        public async Task<IActionResult> UpdateMovie(int id) 
+        public async Task<IActionResult> UpdateMovie(int id)
         {
             var res = await _movieRepository.GetMovieById(id);
             return Ok();
@@ -108,18 +105,18 @@ namespace MovieAPI.Controllers
         [HttpDelete("{movieId}")]
         public IActionResult DeleteMovie(int movieId)
         {
-            if(movieId == 0)
+            if (movieId == 0)
             {
                 return BadRequest();
             }
 
             var movie = _movieRepository.GetMovieById(movieId);
-            if(movie == null)
+            if (movie == null)
             {
                 return NotFound();
             }
 
-             _movieRepository.DeleteMovie(movieId);
+            _movieRepository.DeleteMovie(movieId);
             return NoContent();
         }
 

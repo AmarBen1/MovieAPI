@@ -101,23 +101,24 @@ namespace MovieAPI.Controllers
 
             return Ok(movie);
         }
-
         [HttpDelete("{movieId}")]
-        public IActionResult DeleteMovie(int movieId)
+        public async Task<IActionResult> DeleteMovie(int movieId)
         {
             if (movieId == 0)
             {
                 return BadRequest();
             }
 
-            var movie = _movieRepository.GetMovieById(movieId);
+            var movie = await _movieRepository.GetMovieById(movieId);
             if (movie == null)
             {
                 return NotFound();
             }
-
-            _movieRepository.DeleteMovie(movieId);
-            return NoContent();
+            else
+            {
+                _movieRepository.DeleteMovie(movieId);
+                return NoContent();
+            }
         }
 
         [HttpGet("title")]

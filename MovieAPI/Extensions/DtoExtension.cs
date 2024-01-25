@@ -17,13 +17,13 @@ namespace MovieAPI.Extensions
             var dto = new MovieDTO
             {
                 Id = movie.Id,
-                Title = movie.Title,
-                Director = new Director { Id = movie.Director.Id, FirstName = movie.Director.FirstName, LastName=movie.Director.LastName },
+                Title = movie?.Title,
+                Director = new Director { Id = movie.Director.Id, FirstName = movie.Director.FirstName, LastName = movie.Director.LastName },
                 Genre = movie.Genre,
                 TrailerPath = movie.TrailerPath,
                 ReleaseYear = movie.ReleaseYear,
                 Duration = movie.Duration,
-                Actors = movie.Actors.Select(x=>new Actor { Id=x.Id, FirstName=x.FirstName, LastName=x.LastName })               
+                Actors = movie.Actors.Select(x => new Actor { Id = x.Id, FirstName = x.FirstName, LastName = x.LastName })
             };
             return dto;
         }

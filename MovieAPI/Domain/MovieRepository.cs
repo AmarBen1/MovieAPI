@@ -65,11 +65,18 @@ namespace MovieAPI.Domain
         }
         public async Task<MovieDTO> GetMovieById(int id)
         {
-            var result = await _context.Movies.Include(x=>x.Actors)
-                                              .Include(x=>x.Director)
+            var result = await _context.Movies.Include(x => x.Actors)
+                                              .Include(x => x.Director)
                                               .FirstOrDefaultAsync(x => x.Id == id);
-            var movie = result.ToDto();
-            return movie;
+            if (result == null)
+            {
+                return null;
+            }
+            else
+            {
+                var movie = result.ToDto();
+                return movie;
+            }
         }
         public async Task<Movie> UpdateMovie(Movie movie) //to do
         {
@@ -77,10 +84,10 @@ namespace MovieAPI.Domain
         }
         public void DeleteMovie(int movieId)
         {
-            var movie = _context.Movies.FirstOrDefault(e=>e.Id == movieId);
+            var movie = _context.Movies.FirstOrDefault(e => e.Id == movieId);
             _context.Movies.Remove(movie);
             _context.SaveChanges();
-           
+
         }
         public async Task<IEnumerable<MovieDTO>> GetMoviesByTitle(string movieTitle)
         {

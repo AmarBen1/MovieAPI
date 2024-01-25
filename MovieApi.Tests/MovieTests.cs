@@ -1,6 +1,4 @@
-﻿using Castle.Components.DictionaryAdapter.Xml;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using MovieAPI.Controllers;
 using MovieAPI.Domain;
@@ -34,7 +32,7 @@ namespace MovieApi.Tests
             var result = await sut.AddNewMovie(movie);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-           
+
             var returnedMovie = Assert.IsType<Movie>(okResult.Value);
             var actors = returnedMovie.Actors.ToList();
 
